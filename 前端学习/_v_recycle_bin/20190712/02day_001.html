@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>02day</title>
+  <!-- <link rel="stylesheet" href="lib/css/monokai-sublime.css"> -->
+  <link rel="stylesheet" href="lib/css/default.min.css">
+  <link rel="stylesheet" href="lib/css/vs2015.css">
+  <link rel="stylesheet" href="lib/css/zTreeStyle/zTreeStyle.css">
+  <link rel="stylesheet" href="lib/css/base.css">
+  <link rel="stylesheet" href="lib/css/index.css">
+</head>
+
+<body>
+  <div style='width:25%;'>
+    <ul id="tree" class="ztree" style='width:100%'>
+
+    </ul>
+  </div>
+  <div id='readme' style='width:70%;margin-left:20%;'>
+    <article class='markdown-body'><h1 id="-">第二天笔记</h1>
+<h2 id="-">学习目标</h2>
+<ol>
+<li>表格的创建和使用</li>
+<li>常见表单的使用</li>
+<li>了解HTML5新增的标签及其表单属性 </li>
+</ol>
+<h2 id="-">创建表格</h2>
+<pre><code>    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+        &lt;/tr&gt;    
+        &lt;tr&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+        &lt;/tr&gt;    
+        &lt;tr&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+            &lt;td&gt;单元格&lt;/td&gt;
+        &lt;/tr&gt;        
+    &lt;/table&gt;
+</code></pre><ol>
+<li>表格至少有三个基本的标签构成 table 代表一个表格 tr代表行 td代表单元格</li>
+<li>tr必须嵌套在table标签中，td必须嵌套在tr或者th中</li>
+<li>有几个单元格就代表有几列 </li>
+</ol>
+<h3 id="-">表格属性</h3>
+<pre><code>width  表格的宽度 （了解）
+height 表格的高度 （了解）
+border 表格的边框 （了解）
+align  表格的对齐方式 （了解）
+cellspacing 单元格与单元格的间距
+cellpadding    单元格与单元格内容的间距
+</code></pre><h3 id="-">表格的表头标签</h3>
+<blockquote>
+<p>在合适的位置将td替换成th即可  th标签相对td来说更有语义性 并且会将内部的文字加粗且居中</p>
+<pre><code>    &lt;tr&gt;
+        &lt;th&gt;表头1&lt;/th&gt;
+        &lt;th&gt;表头2&lt;/th&gt;
+        &lt;th&gt;表头3&lt;/th&gt;
+    &lt;/tr&gt;
+</code></pre></blockquote>
+<h3 id="-">表格的结构</h3>
+<pre><code>    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;姓名&lt;/th&gt;
+            &lt;th&gt;年纪&lt;/th&gt;
+            &lt;th&gt;性别&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;小明&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;小强&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;女&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+</code></pre><p>表格的结构不是一定需要的，但是添加上表格的结构会使表格的语义更明确</p>
+<h3 id="-">合并单元格</h3>
+<p>跨行合并 rowspan 上下合并  将rowspan写在上面的单元格上<br>跨列合并 colspan 左右合并  将colspan写在左边的单元格上</p>
+<p>需要合并几个 这个值就是几  一旦合并了多余的单元格需要删掉多余的单元格</p>
+<h2 id="-">表单</h2>
+<p>作用：收集用户信息发送给后台
+三大组成部分：</p>
+<ol>
+<li>表单域  （将内部包含的表单信息都收集起来发送给后台）</li>
+<li>提示文本（提示用户当前表单的输入内容）</li>
+<li>表单 （真正用来收集用户信息）
+<img src="media/bd.png" height="800" width="800" alt=""></li>
+</ol>
+<h3 id="-">表单的分类</h3>
+<pre><code>    &lt;input type=&quot;&quot;&gt;
+    type的取值：
+    text 单行文本输入框
+    password 密码框
+    radio 单选框（在多个里面选择一个） 单选框要生效必须具备name属性 并且同一种类型的单选框的name取值必须一样
+    checkbox 复选框（在多个里面选择某几个）
+    button 普通按钮
+    file 用户上传控件
+    submit 提交按钮
+</code></pre><h3 id="-">其他表单的补充</h3>
+<pre><code>textarea 多行文本输入框
+select 下拉菜单
+</code></pre><h3 id="-">表单补充</h3>
+<pre><code>radio和checkbox 默认选中项  checked
+select框的默认选中项 selected
+label标签的使用
+</code></pre><h3 id="-">表单域</h3>
+<pre><code>&lt;form action=&quot;&quot;&gt;&lt;/form&gt;
+
+action 提交的后台地址
+method 提交的方法
+</code></pre><h2 id="h5-">H5新增的标签及其表单属性</h2>
+<h3 id="h5-">H5新增的标签</h3>
+<pre><code>header,nav,section,footer,aside,article  
+
+这些新增的标签不会带来任何视觉效果的改变，它的作用仅是增加了语义性
+
+header 表示header里面包裹的东西是网站的头部区域
+
+nav 表示nav里面包裹的东西是网站的导航
+
+section 表示里面包裹的东西是网页的某一个模块
+
+footet 表示footer标签里面包裹的东西是网页的页脚
+
+aside 表示aside标签里面包裹的东西是网页的侧边栏
+
+article 表示article标签里面包裹的东西是网页的文章页
+
+详细请查阅文档
+</code></pre><h3 id="h5-">H5新增的表单新属性</h3>
+<ol>
+<li>placeholder 占位文本</li>
+<li>autofocus   自动获取焦点</li>
+<li>autocomplete  自动补全</li>
+<li><p>required    自动验证表单</p>
+<h3 id="h5-">H5新增的表单</h3>
+<pre><code> &lt;input type=&quot;range&quot;&gt;    滑块
+ &lt;input type=&quot;date&quot;&gt;        日期控件
+ &lt;input type=&quot;number&quot;&gt;    唤醒数字键盘
+
+ 详细的请查阅文档
+</code></pre><h3 id="-">多媒体标签</h3>
+</li>
+</ol>
+<h4 id="-">视频</h4>
+<p>网页中插入视频有两种方法</p>
+<ol>
+<li>没有兼容性的 将视频文件上传到第三方网站获取其分享代码放到自己的页面中即可<ul>
+<li>优点：没有兼容性</li>
+<li>缺点：有广告植入</li>
+</ul>
+</li>
+<li>使用H5新增的video方法  </li>
+</ol>
+<pre><code class="lang-html">&lt;video src=&quot;视频路径&quot;&gt;
+
+&lt;/video&gt;
+</code></pre>
+<ul>
+<li>优点：没有广告</li>
+<li>缺点：有兼容性，一般运用在手机端</li>
+</ul>
+<p>video标签的常用属性</p>
+<ol>
+<li>autoplay  自动播放</li>
+<li>controls  播放控件</li>
+<li>loop     循环播放</li>
+</ol>
+<p>video的格式支持
+ogg,MP4,webm 不同的浏览器支持的格式不一样，所以出现了一种兼容写法:前提是准备三种格式的视频文件</p>
+<pre><code class="lang-html">&lt;video autoplay&gt;
+    &lt;source src=&quot;视频1.ogg&quot;&gt;
+    &lt;source src=&quot;视频1.mp4&quot;&gt;
+    &lt;source src=&quot;视频1.webm&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;你的浏览器不支持video，点击升级吧&lt;/a&gt;
+&lt;/video&gt;
+</code></pre>
+<p>浏览器会从上到下依次去读，在这个过程中，只要读到自己识别的视频文件就直接播放这个视频文件，并且不会再往后继续读取
+实测：目前的主流浏览器对Mp4的支持都比较好！！</p>
+<h4 id="-">音频</h4>
+<p>音频的使用和视频的使用基本一致</p>
+<pre><code class="lang-html">&lt;audio&gt;
+    &lt;source src=&quot;音频1.ogg&quot;&gt;
+    &lt;source src=&quot;音频1.mp3&quot;&gt;
+    &lt;source src=&quot;音频1.webm&quot;&gt;
+    &lt;a href=&quot;#&quot;&gt;你的浏览器不支持audio，点击升级吧&lt;/a&gt;
+&lt;/audio&gt;
+</code></pre>
+<p>audio标签的常用属性
+1.autoplay  自动播放
+2.controls  播放控件
+3.loop     循环播放</p>
+<h3 id="-">知识补充</h3>
+<h4 id="-">字符集的设置</h4>
+<p>字符集的核心点就是如果设置了以什么字符集进行读取，那么在保存的时候也需要设置成对应的字符集</p>
+<p>utf-8 收录了全世界所有国家的语言文字
+gbk 收录的是汉字</p>
+<p>utf-8 &gt; gbk  所以查询来说的话gbk的查询和存储都小于utf-8
+但是现在国际主流都是utf-8，所以为了后期的考虑，都用utf-8</p>
+</article>
+  </div>
+</body>
+</html>
+<script type="text/javascript" src="lib/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="lib/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="lib/js/ztree_toc.min.js"></script>
+<script type="text/javascript" src="lib/js/toc_conf.js"></script>
+<script src="lib/js/highlight.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // 代码高亮的js代码
+    hljs.initHighlightingOnLoad();
+
+    //生成侧边栏的代码
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+
+    var conf = eval(jquery_ztree_toc_opts);
+    $('#tree').ztree_toc(conf);
+  });
+</script>

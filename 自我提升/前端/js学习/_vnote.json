@@ -1,0 +1,148 @@
+{
+    "created_time": "2020-03-31T13:46:26Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-03-31T13:47:23Z",
+            "modified_time": "2020-04-12T10:57:29Z",
+            "name": "ES6学习笔记-作用域.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-12T10:25:36Z",
+            "modified_time": "2020-04-12T10:59:36Z",
+            "name": "ES6学习笔记2-let&const.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-12T11:05:59Z",
+            "modified_time": "2020-04-13T10:19:15Z",
+            "name": "ES6学习笔记3-Array.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-13T10:30:37Z",
+            "modified_time": "2020-04-14T01:51:15Z",
+            "name": "ES6学习笔记4-class.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-14T01:50:53Z",
+            "modified_time": "2020-04-14T05:13:40Z",
+            "name": "ES6学习笔记5-function的更新.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-16T01:36:06Z",
+            "modified_time": "2020-04-16T02:03:42Z",
+            "name": "ES6学习笔记6-Object的更新.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-16T02:03:14Z",
+            "modified_time": "2020-04-16T05:08:46Z",
+            "name": "ES6学习笔记7-新的数据结构.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-16T05:07:17Z",
+            "modified_time": "2020-04-16T05:21:41Z",
+            "name": "ES6学习笔记8-正则更新.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-16T05:22:52Z",
+            "modified_time": "2020-04-16T05:35:50Z",
+            "name": "ES6学习笔记9-template.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-16T06:01:07Z",
+            "modified_time": "2020-04-16T06:28:26Z",
+            "name": "ES6学习笔记10-解构赋值.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-17T05:08:36Z",
+            "modified_time": "2020-04-19T05:23:30Z",
+            "name": "ES6学习笔记11-promise.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-19T05:27:21Z",
+            "modified_time": "2020-04-23T11:12:47Z",
+            "name": "ES6学习笔记12-Reflect.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-04-23T11:13:47Z",
+            "modified_time": "2020-04-24T07:37:18Z",
+            "name": "ES6学习笔记13-Proxy.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2020-05-15T12:52:51Z",
+            "modified_time": "2020-06-12T00:49:05Z",
+            "name": "ES6学习笔记14-Generator.md",
+            "tags": [
+            ]
+        }
+    ],
+    "sub_directories": [
+    ],
+    "version": "1"
+}

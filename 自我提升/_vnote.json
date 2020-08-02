@@ -1,0 +1,40 @@
+{
+    "attachment_folder": "_v_attachments",
+    "created_time": "2020-03-28T02:23:53Z",
+    "files": [
+    ],
+    "image_folder": "",
+    "recycle_bin_folder": "_v_recycle_bin",
+    "sub_directories": [
+        {
+            "name": "想法"
+        },
+        {
+            "name": "前端"
+        },
+        {
+            "name": "博客"
+        },
+        {
+            "name": "上传博客"
+        },
+        {
+            "name": "手写js"
+        },
+        {
+            "name": "webpack"
+        },
+        {
+            "name": "复习"
+        },
+        {
+            "name": "HTTP"
+        },
+        {
+            "name": "面试题"
+        }
+    ],
+    "tags": [
+    ],
+    "version": "1"
+}

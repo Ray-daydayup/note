@@ -48,10 +48,15 @@ tProm.then((val) => console.log(val)) // 1
 10. 这句的意思就是，判断执行结果是怎么执行处理的，**`break, continue, return, throw`这几个获得执行结果就是`abrupt completion`。**如果是则将执行结果的值传入`reject`执行（**return返回值会被忽略**）。
 11. 最后返回`promise`实例
 
-大体的流搞清楚了，那我们来看看其中几个点
+大体的流搞清楚了，那我们来总结下其中几个点
+
+1. `Promise` 新建后立即执行，
+2. 返回值是`promise`实例
+
+接下来再来思考几个问题？
 
 1. **实例`promise`的内部属性都是啥意思？**
-2. **传入的参数`resolve`和`reject`到底是啥？**
+2. **传入的参数`resolve`和`reject`到底做了什么？**
 
 ### **实例`promise`的内部属性都是啥意思？**
 
@@ -63,7 +68,9 @@ tProm.then((val) => console.log(val)) // 1
 | [[PromiseRejectReactions]]  | 表示promise从pending状态转换为rejected要处理的记录（**简单的理解就是回调，这个状态转变时要做的事**） |
 |    [[PromiseIsHandled]]     | 一个布尔值，指示promise是否曾经有一个fulfillment或rejection的处理程序;用于未处理的rejection的跟踪。简单的理解是否处理了回调 |
 
-## 传入的参数`resolve`和`reject`到底是啥？
+## 传入的参数`resolve`和`reject`到底做了什么？
+
+在阮一峰老师的《ECMAScript6入门》书里是这么解释的，`resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”（即从 `pending` 变为 `resolved`），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；`reject`函数的作用是，将`Promise`对象的状态从“未完成”变为“失败”（即从 `pending` 变为 `rejected`），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
 
 在`new Promise`的第8步提到了一个函数`CreateResolvingFunctions(promise)`，其实就是根据对应的算法创建实例`promise`对应的解析函数，相当于定义时传入的参数`resolve`和`reject`。那么`resolve`和`reject`到底是怎么执行的？
 
@@ -75,9 +82,11 @@ tProm.then((val) => console.log(val)) // 1
 
 ![image-20200812140552924](_v_images/image-20200812140552924.png)
 
-从上面的定义可以看出来，`reject`的执行很简单，首先改变函数的内置属性`[[AlreadyResolved]]`的状态，然后执行`RejectPromise ( promise, reason )`，
+从上面的定义可以看出来，`reject`的执行很简单
 
-将`promise`的内置状态改变后，返回`TriggerPromiseReactions(reactions, reason)`的执行结果。（关于``RejectPromise`第7步，我也有点疑问，暂时先放在这里）
+1. 首先改变函数的内置属性`[[AlreadyResolved]]`的状态，然后执行`RejectPromise ( promise, reason )`，
+
+2. 将`promise`的内置状态改变后，返回`TriggerPromiseReactions(reactions, reason)`的执行结果。（关于``RejectPromise`第7步，我也有点疑问，暂时先放在这里）
 
 所以呢，`TriggerPromiseReactions(reactions, reason)`的结果决定了，`reject`到底干了啥。
 
@@ -85,12 +94,28 @@ tProm.then((val) => console.log(val)) // 1
 
 首先我们来认识一个叫**PromiseReaction Records**的东西，他就是`promise`内置属性`[[PromiseFulfillReactions]]`和`[[PromiseRejectReactions]]`要存储的记录。
 
-`PromiseReaction`是一个记录值，用于存储关于`promise`在被`resolved`或被`rejected`时应该如何反应的信息，是由`PerformPromiseThen`抽象操作创建的。
+- `PromiseReaction`是一个记录值，用于存储关于`promise`在被`resolved`或被`rejected`时应该如何反应的信息，是由`PerformPromiseThen`抽象操作创建的。
 
-一个`PromiseReaction Record`有三个内置属性`[[Capability]]`、`[[Type]]`和`[[Handler]]`，第一个属性暂时不用看，`[[Type]]`有两个取值`Fulfill | Reject`
+- 一个`PromiseReaction Record`有三个内置属性`[[Capability]]`、`[[Type]]`和`[[Handler]]`，第一个属性暂时不用看，`[[Type]]`有两个取值`Fulfill | Reject`
 
-`[[Handler]]`**是应用于传入值的函数，它的返回值将控制`derived promise`的情况。**
-**如果`[[Handler]]`未定义，则将使用一个依赖于`[[Type]]`值的函数**。`TriggerPromiseReactions`函数是根据`Type`和`[[Handler]]`来处理回调的。
+- `[[Handler]]`**是应用于传入值的函数，它的返回值将控制`derived promise`的情况。**
+  **如果`[[Handler]]`未定义，则将使用一个依赖于`[[Type]]`值的函数**。（这里放到后面来处理）
+
+`TriggerPromiseReactions`函数是根据`Type`和`[[Handler]]`来处理回调的。`TriggerPromiseReactions(reactions, reason)`的具体操作如下：
+
+1. For each reaction in reactions, in original insertion order, do（针对每个Reaction，按照原本插入的顺序执行）
+   1. Let job be `NewPromiseReactionJob(reaction, argument)`.（调用函数，生成job）
+   2. Perform `HostEnqueuePromiseJob(job.[[Job]], job.[[Realm]])`.（执行函数）
+
+2. 返回`undefined`
+
+`NewPromiseReactionJob(reaction, argument)`返回一个新的`Job`
+`abstract closure`，用来对传入值应用适当的`handler`，并使用`handler`的返回值来`resolve`或 `reject`拒绝与该`handler`关联的派生承诺。
+
+`HostEnqueuePromiseJob`，是一个`host-defined`的抽象操作，将`Job`
+`abstract closure`安排在未来某个时间执行。
+
+那么`TriggerPromiseReactions(reactions, reason)`简单的理解就是
 
 那么简单总结一下，`reject`的执行流程
 
@@ -99,3 +124,94 @@ tProm.then((val) => console.log(val)) // 1
 3. 更改对应的`promise`的内部属性
 4. `If promise.[[PromiseIsHandled]] is false, perform HostPromiseRejectionTracker(promise, "reject").`这步先忽略
 5. 抽象操作`TriggerPromiseReactions`获取一个`PromiseReactionRecords`的集合，并为每条记录按照顺序，生成包含对应，然后
+
+```js
+const STATUS_PENDING = 'pending'
+const STATUS_FULFILLED = 'fulfilled'
+const STATUS_REJECTED = 'rejected'
+
+class MyPromise {
+  constructor(executor) {
+    this.state = STATUS_PENDING
+    this.val = null
+    this.reason = null
+    this.fulFilledCb = []
+    this.rejectedCb = []
+
+    try {
+      executor(resolve.bind(this), reject.bind(this))
+    } catch (err) {
+      reject.bind(this)(err)
+    }
+  }
+  then(onFullFilled, onRejected) {
+    this.fulFilledCb.push(
+      typeof onFullFilled === 'function' ? onFullFilled : (v) => v
+    )
+    this.rejectedCb.push(
+      typeof onRejected === 'function'
+        ? onRejected
+        : (err) => {
+            throw err
+          }
+    )
+    if (this.state === STATUS_FULFILLED) {
+      while (this.fulFilledCb.length > 0) {
+        this.fulFilledCb[0](this.val)
+        this.fulFilledCb.shift()
+      }
+    }
+    if (this.state === STATUS_REJECTED) {
+      while (this.rejectedCb.length > 0) {
+        this.rejectedCb[0](this.reason)
+        this.rejectedCb.shift()
+      }
+    }
+  }
+}
+
+function resolve(val) {
+  if (this.state === STATUS_PENDING) {
+    this.state = STATUS_FULFILLED
+    this.val = val
+  }
+  while (this.fulFilledCb.length > 0) {
+    this.fulFilledCb[0](this.val)
+    this.fulFilledCb.shift()
+  }
+}
+
+function reject(reason) {
+  if (this.state === STATUS_PENDING) {
+    this.state = STATUS_REJECTED
+    this.reason = reason
+  }
+
+  while (this.rejectedCb.length > 0) {
+    this.rejectedCb[0](this.reason)
+    this.rejectedCb.shift()
+  }
+}
+
+let promise = new MyPromise((resolve, reject) => {
+  throw new Error('一个错误')
+})
+
+promise.then(
+  (res) => {
+    console.log('success:', res)
+  },
+  (err) => {
+    console.log('error:', err)
+  }
+)
+
+// const p1 = new Promise((resolve, reject) => {
+//   resolve(1)
+// })
+
+// p1.then((val) => console.log(val, '1'))
+// p1.then((val) => console.log(val, '2'))
+
+```
+
